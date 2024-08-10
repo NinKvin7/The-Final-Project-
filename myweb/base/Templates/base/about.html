@@ -1,0 +1,39 @@
+{% extends 'Main.html' %}
+
+{% block title %}
+    <title>About Page</title>
+{% endblock %}
+
+{% block content %}
+    <style>
+        .about-container {
+            border: 4px solid #bce1ec ; /* Border color */
+            padding: 30px; /* Space inside the border */
+            border-radius: 20px; /* Rounded corners (optional) */
+            margin: 50px; /* Space outside the border */
+            background-color: #f9f9f9; /* Light background color (optional) */
+        }
+
+        .highlight {
+            font-weight: bold; /* Make the text bold */
+            color: #000000 ; /* Specific color */
+            text-decoration: underline
+        }
+
+        .about-container h2 {
+            text-align: center; /* Center align the heading */
+            color: #000000 ; /* Optional: dark color for the heading */
+        }
+    </style>
+
+    <div class="about-container">
+        <h2>About Our Platform and Community</h2>
+        <p>
+            This platform is dedicated to presenting a curated selection of outstanding films,
+            aptly named <span class="highlight">Must Watch Movies</span>. We invite you to immerse
+            yourself in our carefully chosen collection during your leisure time. Additionally,
+            we welcome you to contribute by adding your favorite films to our list,
+            enhancing our community's experience.
+        </p>
+    </div>
+{% endblock %}

@@ -1,0 +1,116 @@
+{%extends 'Main.html'%}
+
+{% block title %}
+    <title> Add movie Page </title>
+{% endblock %}  --მაუსს რომ მიუახლოვებ, მაშინ ჩანს
+
+
+{% block content %}
+    <h2> Adding movie: </h2>
+     <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label>Movie Cover:</label>
+            <br>
+            {{ form.picture }}
+        </div>
+        <div>
+            <label>Movie Title:</label>
+            <br>
+            {{form.name}}
+        </div>
+
+         <div>
+            <label for="movie_director">Director:</label>
+            <br>
+            <input required type="text" name="director" list="director-list" >
+            <datalist id="director-list">
+                {% for director in directors %}
+                    <select id="movie_director">
+                        <option value="{{ director.name }}">{{ director.name }}</option>
+                    </select>
+                {% endfor %}
+
+            </datalist>
+        </div>
+
+        <div>
+                <label for="movie_genre">Genre:</label>
+                <br>
+                <input required type="text" name="genre" list="genre-list" >
+                <datalist id="genre-list">
+                    {% for genre in genres %}
+                        <select id="movie_genre">
+                            <option value="{{ genre.name }}">{{ genre.name }}</option>
+                        </select>
+                    {% endfor %}
+
+                </datalist>
+        </div>
+
+         <div>
+                <label for="movie_actor">Actor:</label>
+                <br>
+                <input required type="text" name="actor" list="actor-list" >
+                <datalist id="actor-list">
+                    {% for actor in actors %}
+                        <select id="movie_actor">
+                            <option value="{{ actor.name }}">{{ actor.name }}</option>
+                        </select>
+                    {% endfor %}
+
+                </datalist>
+        </div>
+
+         <div>
+                <label for="movie_country">Country:</label>
+                <br>
+                <input required type="text" name="country" list="country-list" >
+                <datalist id="country-list">
+                    {% for country in countries %}
+                        <select id="movie_country">
+                            <option value="{{ country.name }}">{{ country.name }}</option>
+                        </select>
+                    {% endfor %}
+
+                </datalist>
+        </div>
+
+        <div>
+            <label>Movie Description:</label>
+            <br>
+            {{form.description}}
+        </div>
+
+         <div>
+            <label>Movie Rate:</label>
+            <br>
+            {{form.rate}}
+        </div>
+
+         <div>
+            <label>Movie Year:</label>
+            <br>
+            {{form.year}}
+        </div>
+
+         <div>
+            <label>Movie Runtime:</label>
+            <br>
+            {{form.runtime}}
+        </div>
+
+         <div>
+            <label>Movie Trailer:</label>
+            <br>
+            {{form.trailer}}
+        </div>
+
+        <div>
+            <label>Movie Description:</label>
+            <br>
+            {{form.file}}
+        </div>
+        <br>
+        <input type="submit" value="Upload" >
+{% endblock %}

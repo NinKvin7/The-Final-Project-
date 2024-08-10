@@ -1,0 +1,12 @@
+{%extends 'Main.html'%}
+
+{% block title %}
+    <title> My list </title>
+{% endblock %}
+
+{% block content %}
+
+    <a href="{% url 'update_user' %}">Update User</a>
+    {% include 'base/movies.html'%}
+
+{% endblock %}

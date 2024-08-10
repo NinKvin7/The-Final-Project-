@@ -1,0 +1,223 @@
+<style>
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 10fr;
+    }
+
+    .genre {
+        margin: 1px 15px;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    /* Button styles */
+    .btn {
+        padding: 7px 14px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        font-weight: bold;
+        text-decoration: none; /* Remove underline */
+    }
+
+    .btn-primary {
+        background-color: #38A4BA; /* Primary button color */
+        color: #FFF; /* Text color */
+    }
+
+    .btn-primary:hover {
+        background-color: #D7D8DA; /* Background color on hover */
+        color: #38A4BA; /* Text color on hover */
+    }
+
+    /* New styles for Add Movie button */
+    .add-movie-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: 1.5px solid #ffffff; /* Border color */
+        border-radius: 8px; /* Rounded corners */
+        background-color: #ffffff ; /* Light background color */
+        color: #000000; /* Text color */
+        text-decoration: none; /* Remove underline */
+        transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+<!--        font-weight: bold; /* Bold text */-->
+    }
+
+    .add-movie-btn:hover {
+        background-color: #bce1ec ; /* Background color on hover */
+        color: #FFF; /* Text color on hover */
+    }
+</style>
+
+<div class="home-container">
+    <div class="genre">
+        <hr>
+        <h3>Genres:</h3>
+        <hr>
+        <a href="{{ request.path }}">All</a>
+        <hr>
+        {% for genre in genres %}
+            <a href="{{ request.path }}?q={{ genre.name }}"> {{ genre }} </a>
+            <hr>
+        {% endfor %}
+    </div>
+
+    <div>
+        <hr>
+        <h3>{{ heading }}</h3>
+        <hr>
+        <br>
+        <a href="{% url 'add' %}" class="add-movie-btn">Add Movie</a>
+        <br><br>
+
+        <div class="row">
+            {% for movie in movies %}
+                <div class="card" style="width: 17rem; margin-left: 1%;">
+                    <img src="{{ movie.picture.url }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.name }} {{ movie.year }}</h5>
+                        <h6 class="card-title">IMDB {{ movie.rate }}</h6>
+                        <p class="card-text">{{ movie.description | slice:":200" }}.</p>
+
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'watching' movie.id %}" class="btn btn-primary">Watch</a>
+
+                            {% if movie in request.user.movies.all %}
+                                <a href="{% url 'drop' movie.id %}" class="btn btn-primary">Drop</a>
+                            {% else %}
+                                <a href="{% url 'adding' movie.id %}" class="btn btn-primary">Add</a>
+                            {% endif %}
+
+                            {% if request.user == movie.creator %}
+                                <a href="{% url 'delete' movie.id %}" class="btn btn-primary">Delete</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<!--<style>-->
+<!--    .home-container {-->
+<!--    display: grid;-->
+<!--    grid-template-columns: 1fr 10fr;-->
+<!--    }-->
+
+<!--    .genre {-->
+<!--    margin: 1px 15px-->
+<!--    }-->
+
+<!--    .row{-->
+<!--        display: flex;-->
+<!--    }-->
+
+<!--</style>-->
+
+<!--<div class="home-container">-->
+<!--    <div class="genre">-->
+<!--        <hr>-->
+<!--        <h3> Genres: </h3>-->
+<!--        <hr>-->
+
+<!--        <a href="{{request.path}}"> All </a>-->
+<!--        <hr>-->
+<!--        {% for genre in genres %}-->
+<!--            <a href="{{request.path}}?q={{genre.name}}"> {{ genre }} </a>-->
+<!--            <hr>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <hr>-->
+<!--            <h3> {{ heading }} </h3>-->
+<!--        <hr>-->
+<!--        <br>-->
+<!--         <a href="{% url 'add' %}">Add Movie</a>-->
+<!--        <br><br>-->
+
+<!--        <div class="row" >-->
+<!--            {% for movie in movies %}-->
+<!--                <div class="card" style="width: 17rem; margin-left: 1%; ">-->
+<!--                  <img src="{{ movie.picture.url }}" class="card-img-top" alt="...">-->
+<!--                  <div class="card-body">-->
+<!--                    <h5 class="card-title">{{ movie.name }}  {{ movie.year }} </h5>-->
+<!--&lt;!&ndash;                        Id {{movie.id}}</h5>&ndash;&gt;-->
+<!--                      <h6 class="card-title"> IMDB {{ movie.rate }}</h6>-->
+<!--                    <p class="card-text">{{ movie.description | slice:":200"}}.</p>-->
+
+<!--                      {% if request.user.is_authenticated %}-->
+<!--                      <!DOCTYPE html>-->
+<!--                    <html lang="en">-->
+<!--                    <head>-->
+<!--                        <meta charset="UTF-8">-->
+<!--                        <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--                        <title>Movie Buttons</title>-->
+<!--                        <style>-->
+<!--                            .btn {-->
+<!--                                padding: 7px 14px;-->
+<!--                                font-size: 16px;-->
+<!--                                border: none;-->
+<!--                                cursor: pointer;-->
+<!--                                transition: background-color 0.3s;-->
+<!--                                font-weight: bold;-->
+<!--                            }-->
+<!--                            .btn-primary {-->
+<!--                                background-color: #38A4BA; /* Added missing semicolon */-->
+<!--                                color: #FFF;-->
+<!--                            }-->
+<!--                            .btn-primary:hover {-->
+<!--                                background-color: #D7D8DA;/* Color on hover */-->
+<!--                                color: #38A4BA;-->
+<!--                            }-->
+<!--                        </style>-->
+<!--                    </head>-->
+<!--                    <body>-->
+
+<!--                        {% if request.user.is_authenticated %}-->
+<!--                            <a href="{% url 'watching' movie.id %}" class="btn btn-primary" onclick="changeColor(this)">Watch</a>-->
+
+<!--                            {% if movie in request.user.movies.all %}-->
+<!--                                <a href="{% url 'drop' movie.id %}" class="btn btn-primary" onclick="changeColor(this)">Drop</a>-->
+<!--                            {% else %}-->
+<!--                                <a href="{% url 'adding' movie.id %}" class="btn btn-primary" onclick="changeColor(this)">Add</a>-->
+<!--                            {% endif %}-->
+
+<!--                            {% if request.user == movie.creator %}-->
+<!--                                <a href="{% url 'delete' movie.id %}" class="btn btn-primary" onclick="changeColor(this)">Delete</a>-->
+<!--                            {% endif %}-->
+<!--                        {% endif %}-->
+
+<!--                    </body>-->
+<!--                    </html>-->
+
+
+
+
+<!--&lt;!&ndash;                          <a href="{% url 'watching' movie.id %}" class="btn btn-primary">Watch</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                          {% if movie in request.user.movies.all %}&ndash;&gt;-->
+<!--&lt;!&ndash;                          <a href="{%  url 'drop' movie.id %}" class="btn btn-primary">Drop</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                          {% else %}&ndash;&gt;-->
+<!--&lt;!&ndash;                          <a href="{%  url 'adding' movie.id %}" class="btn btn-primary">Add</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                          {% endif %}&ndash;&gt;-->
+
+<!--&lt;!&ndash;                          {% if request.user == movie.creator %}&ndash;&gt;-->
+<!--&lt;!&ndash;                               <a href="{% url 'delete' movie.id %}" class="btn btn-primary">Delete</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                          {% endif %}&ndash;&gt;-->
+<!--                      {% endif %}-->
+
+<!--                  </div>-->
+<!--                </div>-->
+<!--            {% endfor%}-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+<!--</div>-->
